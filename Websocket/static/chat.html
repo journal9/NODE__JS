@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="/css" />
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chat Application</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message">
+                <img src="https://via.placeholder.com/40" alt="Avatar" class="avatar">
+                <div class="message-content">
+                    <div class="sender">John Doe</div>
+                    <div>Hello there!</div>
+                </div>
+            </div>
+            <div class="message me">
+                <div class="message-content">
+                    <div class="sender">You</div>
+                    <div>Hi! How can I help you?</div>
+                </div>
+                <img src="https://via.placeholder.com/40" alt="Your Avatar" class="avatar">
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var message = messageInput.value.trim();
+            if (message !== "") {
+                var chatMessages = document.getElementById("chat-messages");
+                var messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.classList.add("me");
+                var messageContent = document.createElement("div");
+                messageContent.classList.add("message-content");
+                var sender = document.createElement("div");
+                sender.classList.add("sender");
+                sender.textContent = "You";
+                var messageText = document.createElement("div");
+                messageText.textContent = message;
+                messageContent.appendChild(sender);
+                messageContent.appendChild(messageText);
+                messageDiv.appendChild(messageContent);
+                chatMessages.appendChild(messageDiv);
+                messageInput.value = "";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
