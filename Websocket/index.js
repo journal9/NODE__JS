@@ -1,11 +1,12 @@
-const express = require("express")
-const http = require('http')
 const path = require('path')
-const app = express()
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 const static_path = path.join(__dirname,'static')
-
-const Server = http.createServer(app)
 port = 3002
 
 app.get('/',(req,res)=>{
@@ -13,10 +14,21 @@ app.get('/',(req,res)=>{
     console.log("hello")
 })
 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+        io.emit('chat message', msg);
+      });
+  });
+
 app.get('/css',(req,res)=>{
     res.sendFile(`${static_path}/style.css`);
 })
 
-Server.listen(port,()=>{
+server.listen(port,()=>{
     console.log(`listening to port ${port} ${Date.now()}`)
 })

@@ -4,6 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Application</title>
     <link rel="stylesheet" href="/css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+    </script>
 </head>
 <body>
     <div class="chat-container">
@@ -33,9 +37,8 @@
     </div>
 
     <script>
-        function sendMessage() {
-            var messageInput = document.getElementById("message-input");
-            var message = messageInput.value.trim();
+        var socket = io();
+        function handleMessages(message){
             if (message !== "") {
                 var chatMessages = document.getElementById("chat-messages");
                 var messageDiv = document.createElement("div");
@@ -52,10 +55,23 @@
                 messageContent.appendChild(messageText);
                 messageDiv.appendChild(messageContent);
                 chatMessages.appendChild(messageDiv);
-                messageInput.value = "";
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
         }
+
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var message = messageInput.value.trim();
+            if (messageInput.value) {
+                    socket.emit('chat message', messageInput.value);
+                    console.log('emitted')
+                    messageInput.value = '';
+                }
+            messageInput.value = "";
+        }
+        socket.on('chat message', function(msg) {
+            handleMessages(msg);
+        });
     </script>
 </body>
 </html>
