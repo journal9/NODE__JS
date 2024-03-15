@@ -38,39 +38,60 @@
 
     <script>
         var socket = io();
-        function handleMessages(message){
+        socket.on("connect", () => {
+            console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+        });
+        function handleMessages(message,id){
+            
             if (message !== "") {
                 var chatMessages = document.getElementById("chat-messages");
                 var messageDiv = document.createElement("div");
-                messageDiv.classList.add("message");
-                messageDiv.classList.add("me");
+                let img = document.createElement('img');
+                img.classList.add('avatar')
+                if(message.substring(0,5)!=id){
+                    messageDiv.classList.add("message");
+                    img.src ="https://via.placeholder.com/40"
+                    messageDiv.appendChild(img)
+                }
+                else{
+                    messageDiv.classList.add("message");
+                    messageDiv.classList.add("me");
+                }
                 var messageContent = document.createElement("div");
                 messageContent.classList.add("message-content");
                 var sender = document.createElement("div");
                 sender.classList.add("sender");
-                sender.textContent = "You";
+                sender.textContent = message.substring(0,5);
                 var messageText = document.createElement("div");
-                messageText.textContent = message;
+                messageText.textContent = message.substring(6);
                 messageContent.appendChild(sender);
                 messageContent.appendChild(messageText);
                 messageDiv.appendChild(messageContent);
                 chatMessages.appendChild(messageDiv);
+                console.log("okk")
+                if(message.substring(0,5)==id){
+                    console.log('ji')
+                    img.src ="https://via.placeholder.com/40"
+                    messageDiv.appendChild(img) 
+                }
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
         }
 
         function sendMessage() {
             var messageInput = document.getElementById("message-input");
-            var message = messageInput.value.trim();
+            var msge = messageInput.value.trim();
+            var message = `${socket.id.substring(0,5)}:${msge}`
             if (messageInput.value) {
-                    socket.emit('chat message', messageInput.value);
+                    socket.emit('chat message', message);
                     console.log('emitted')
                     messageInput.value = '';
                 }
-            messageInput.value = "";
         }
         socket.on('chat message', function(msg) {
-            handleMessages(msg);
+            id = socket.id
+            idds = id.substring(0,5)
+            handleMessages(msg,idds);
         });
     </script>
 </body>
