@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
         io.emit('chat message', msg);
       });
     socket.on('typing', (msg) => {
+        console.log(msg)
         socket.broadcast.emit('typing-activity', `${msg} is typing...`);
     });
 

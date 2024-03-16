@@ -34,7 +34,7 @@
                 <img src="https://via.placeholder.com/40" alt="Your Avatar" class="avatar">
             </div>
         </div>
-        <p class="typing"></p>
+        <p id="typing"></p>
         <div class="chat-input">
             <input type="text" id="message-input" placeholder="Type your message...">
             <button onclick="sendMessage()">Send</button>
@@ -47,10 +47,18 @@
                 pickerPosition: "bottom"
             });
         })
+        $("#message-input").emojioneArea({
+              events: {
+                  keypress: function(event) { 
+                    console.log(socket.id)
+                    socket.emit('typing',`${socket.id.substring(0,5)}`);
+                  }
+              }
+        });
 
         var chatMessages = document.getElementById("chat-messages");
         var msgInput = document.getElementById("message-input");
-        var typeP = document.getElementsByClassName("typing");
+        var typeP = document.getElementById("typing");
 
         var socket = io();
         socket.on("connect", () => {
@@ -63,15 +71,8 @@
             chatMessages.appendChild(activityDiv);
         });
         socket.on("typing-activity", (msg) => {
-            typeP.textContent = msg;
-        });
-
-        msgInput.addEventListener('keypress',()=>{
-            socket.emit('typing',`${socket.id.substring(0,5)}`)
-        })
-        $(".message-input").keypress(function() {
-            console.log('okkk')
-            socket.emit('typing',`${socket.id.substring(0,5)}`)
+            console.log('jio')
+            document.getElementById('typing').innerText = msg
         });
 
         function handleMessages(message,id){
