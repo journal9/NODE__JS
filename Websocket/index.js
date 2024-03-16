@@ -11,19 +11,22 @@ port = 3002
 
 app.get('/',(req,res)=>{
     res.sendFile(`${static_path}/chat.html`);
-    console.log("hello")
 })
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
-    console.log(socket.id);
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+        socket.broadcast.emit('activity', `${socket.id.substring(0,5)} has left the chat`);
+    });
+    socket.on('new connection', (msg) => {
+        socket.broadcast.emit('activity', `${msg} has joined the chat`);
     });
     socket.on('chat message', (msg) => {
-        console.log('message: ' + msg);
         io.emit('chat message', msg);
       });
+    socket.on('typing', (msg) => {
+        socket.broadcast.emit('typing-activity', `${msg} is typing...`);
+    });
+
   });
 
 app.get('/css',(req,res)=>{
