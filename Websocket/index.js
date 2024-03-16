@@ -29,6 +29,12 @@ io.on('connection', (socket) => {
 app.get('/css',(req,res)=>{
     res.sendFile(`${static_path}/style.css`);
 })
+app.get('/emojicss',(req,res)=>{
+    res.sendFile(`${static_path}/emojionearea.min.css`);
+})
+app.get('/emojijs',(req,res)=>{
+    res.sendFile(`${static_path}/emojionearea.min.js`);
+})
 
 server.listen(port,()=>{
     console.log(`listening to port ${port} ${Date.now()}`)

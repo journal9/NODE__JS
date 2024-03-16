@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Application</title>
     <link rel="stylesheet" href="/css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/emojicss" />
+    <script src="/emojijs" ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var socket = io();
@@ -37,12 +40,16 @@
     </div>
 
     <script>
+        $(document).ready(function(){
+            $("#message-input").emojioneArea({
+                pickerPosition: "bottom"
+            });
+        })
         var socket = io();
         socket.on("connect", () => {
             console.log(socket.id); // x8WIv7-mJelg7on_ALbx
         });
         function handleMessages(message,id){
-            
             if (message !== "") {
                 var chatMessages = document.getElementById("chat-messages");
                 var messageDiv = document.createElement("div");
@@ -61,7 +68,7 @@
                 messageContent.classList.add("message-content");
                 var sender = document.createElement("div");
                 sender.classList.add("sender");
-                sender.textContent = message.substring(0,5);
+                sender.textContent = "Sarah";
                 var messageText = document.createElement("div");
                 messageText.textContent = message.substring(6);
                 messageContent.appendChild(sender);
@@ -70,7 +77,6 @@
                 chatMessages.appendChild(messageDiv);
                 console.log("okk")
                 if(message.substring(0,5)==id){
-                    console.log('ji')
                     img.src ="https://via.placeholder.com/40"
                     messageDiv.appendChild(img) 
                 }
@@ -87,6 +93,8 @@
                     console.log('emitted')
                     messageInput.value = '';
                 }
+            $("#message-input").data("emojioneArea").setText('');
+            console.log(messageInput.values)
         }
         socket.on('chat message', function(msg) {
             id = socket.id
