@@ -16,6 +16,7 @@
     <div class="chat-container">
         <div class="chat-header">
             <h2>Chat Application</h2>
+            <input type="text" id="name-input" placeholder="name...">
         </div>
         <div class="chat-messages" id="chat-messages">
             <div class="message">
@@ -42,6 +43,13 @@
     </div>
 
     <script>
+        let userName = ''
+        document.getElementById('name-input').addEventListener('keypress',(e)=>{
+            console.log(e.target.value)
+            if(e.keyCode===13){
+                userName = e.target.value;
+            }
+        })
         $(document).ready(function(){
             $("#message-input").emojioneArea({
                 pickerPosition: "bottom"
@@ -51,7 +59,7 @@
               events: {
                   keypress: function(event) { 
                     console.log(socket.id)
-                    socket.emit('typing',`${socket.id.substring(0,5)}`);
+                    socket.emit('typing',userName);
                   }
               }
         });
@@ -62,25 +70,26 @@
 
         var socket = io();
         socket.on("connect", () => {
-            socket.emit('new connection',`${socket.id.substring(0,5)}`) // x8WIv7-mJelg7on_ALbx
+            socket.emit('new connection',userName) // x8WIv7-mJelg7on_ALbx
         });
         socket.on("activity", (msg) => {
             var activityDiv = document.createElement("p");
             activityDiv.classList.add("activity");
             activityDiv.textContent = msg;
             chatMessages.appendChild(activityDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         });
         socket.on("typing-activity", (msg) => {
             console.log('jio')
             document.getElementById('typing').innerText = msg
         });
 
-        function handleMessages(message,id){
-            if (message !== "") {
+        function handleMessages(message,name){
+            if (message.msg !== "") {
                 var messageDiv = document.createElement("div");
                 let img = document.createElement('img');
                 img.classList.add('avatar')
-                if(message.substring(0,5)!=id){
+                if(message.name!=name){
                     messageDiv.classList.add("message");
                     img.src ="https://via.placeholder.com/40"
                     messageDiv.appendChild(img)
@@ -93,14 +102,14 @@
                 messageContent.classList.add("message-content");
                 var sender = document.createElement("div");
                 sender.classList.add("sender");
-                sender.textContent = message.substring(0,5);
+                sender.textContent = message.name;
                 var messageText = document.createElement("div");
-                messageText.textContent = message.substring(6);
+                messageText.textContent = message.msg;
                 messageContent.appendChild(sender);
                 messageContent.appendChild(messageText);
                 messageDiv.appendChild(messageContent);
                 chatMessages.appendChild(messageDiv);
-                if(message.substring(0,5)==id){
+                if(message.name==name){
                     img.src ="https://via.placeholder.com/40"
                     messageDiv.appendChild(img) 
                 }
@@ -111,7 +120,8 @@
         function sendMessage() {
             var messageInput = document.getElementById("message-input");
             var msge = messageInput.value.trim();
-            var message = `${socket.id.substring(0,5)}:${msge}`
+            var message = {'name':userName,'msg':msge}
+            console.log(message)
             if (messageInput.value) {
                     socket.emit('chat message', message);
                 }
@@ -119,9 +129,7 @@
         }
         socket.on('chat message', function(msg) {
             typeP.textContent='';
-            id = socket.id;
-            idds = id.substring(0,5);
-            handleMessages(msg,idds);
+            handleMessages(msg,userName);
         });
     </script>
 </body>
