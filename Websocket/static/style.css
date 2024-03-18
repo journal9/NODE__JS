@@ -20,6 +20,7 @@ body {
     padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    align-items: center;
 }
 
 .chat-header h2 {
@@ -34,6 +35,8 @@ body {
 #name-input{
     margin-inline-start: auto;
     border-radius: 8px;
+    height: 2rem;
+    align-content: center;
 }
 
 .message {
@@ -47,6 +50,14 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+.chat-header .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 1rem;
 }
 
 .message .message-content {
