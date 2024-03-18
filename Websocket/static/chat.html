@@ -39,6 +39,7 @@
         <p id="typing"></p>
         <div class="chat-input">
             <input type="text" id="message-input" placeholder="Type your message...">
+            <input type="file" id="imgs" onchange="setImgSrc(this)" accept="image/*" />
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
@@ -66,6 +67,14 @@
         function updateAvatar(e){
             alert('happen')
         }
+
+        var srcs
+        function setImgSrc(elm){
+            var fr = new FileReader()
+            fr.onload = () => (srcs = fr.result)
+            fr.readAsArrayBuffer(elm.files[0])
+        }
+
         var chatMessages = document.getElementById("chat-messages");
         var msgInput = document.getElementById("message-input");
         var typeP = document.getElementById("typing");
@@ -88,7 +97,9 @@
         function handleMessages(message,name){
             if (message.msg !== "") {
                 var messageDiv = document.createElement("div");
+                var imageDiv = document.createElement('div')
                 let img = document.createElement('img');
+                var imgs = document.createElement('img')
                 img.classList.add('avatar')
                 if(message.name!=name){
                     messageDiv.classList.add("message");
@@ -106,9 +117,17 @@
                 sender.textContent = message.name;
                 var messageText = document.createElement("div");
                 messageText.textContent = message.msg;
+                if(message.imgs){
+                        imgs.src = (window.URL || window.webkitURL).createObjectURL(
+                            new Blob([message.imgs], { type: 'image/png' })
+                        )
+                        imgs.width = 150
+                        imgs.height = 150
+                    }
                 messageContent.appendChild(sender);
                 messageContent.appendChild(messageText);
                 messageDiv.appendChild(messageContent);
+                messageDiv.appendChild(imgs);
                 chatMessages.appendChild(messageDiv);
                 if(message.name==name){
                     img.src ="https://via.placeholder.com/40"
@@ -121,7 +140,8 @@
         function sendMessage() {
             var messageInput = document.getElementById("message-input");
             var msge = messageInput.value.trim();
-            var message = {'name':userName,'msg':msge}
+            var message = {'name':userName,'msg':msge,'imgs':srcs}
+            srcs = null
             if (messageInput.value) {
                     socket.emit('chat message', message);
                 }
