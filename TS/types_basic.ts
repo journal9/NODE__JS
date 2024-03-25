@@ -68,3 +68,39 @@ items[1]='apple';
 items[2]=false;
 console.log(items)
 console.log(typeof(items)); //object
+
+//Tuple type
+var tup: [string,number];
+tup = ["sql",7] //order matters
+console.log(tup)
+
+var rgb: [number,number,number,string?];
+rgb = [201,190,0] //optional elements are also supported
+
+//Enum Type
+enum Status {
+    "Submitted",
+    "Approved",
+    "Rejected"
+}
+var stat = Status.Approved
+if(stat==Status.Approved){
+    console.log("good")
+}
+
+//Never type
+// function raiseError(): never{
+//     throw new Error('error occurred')
+// }
+// raiseError()
+
+//Type aliases
+type alphanumeric = string | number;
+var input: alphanumeric;
+input = "tree23"
+console.log(typeof(input))
+
+//String literal types
+type Fruits = 'Apple' | 'Orange' | 'Mango';
+let fruit: Fruits
+fruit= "Apple"

@@ -47,3 +47,25 @@ items[1] = 'apple';
 items[2] = false;
 console.log(items);
 console.log(typeof (items)); //object
+//Tuple type
+var tup;
+tup = ["sql", 7]; //order matters
+console.log(tup);
+var rgb;
+rgb = [201, 190, 0]; //optional elements are also supported
+//Enum Type
+var Status;
+(function (Status) {
+    Status[Status["Submitted"] = 0] = "Submitted";
+    Status[Status["Approved"] = 1] = "Approved";
+    Status[Status["Rejected"] = 2] = "Rejected";
+})(Status || (Status = {}));
+var stat = Status.Approved;
+if (stat == Status.Approved) {
+    console.log("good");
+}
+var input;
+input = "tree23";
+console.log(typeof (input));
+var fruit;
+fruit = "Apple";
