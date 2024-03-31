@@ -69,3 +69,23 @@ input = "tree23";
 console.log(typeof (input));
 var fruit;
 fruit = "Apple";
+//JSON type
+var kt = {
+    "quote": {
+        "name": "Alfa",
+        "capture": 454,
+        "theory": true,
+        "lists": [
+            "You must be the change you wish to see in the world.",
+            "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+            "The only thing we have to fear is fear itself.",
+            "Do one thing every day that scares you.",
+            "It is during our darkest moments that we must focus to see the light."
+        ],
+        "address": {
+            "code": 123434,
+            "city": "Pune"
+        }
+    }
+};
+console.log(kt.quote.lists[1]);
