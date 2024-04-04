@@ -4,6 +4,7 @@ function Product(name: string, type: string, price: number) {
     this.type = type;
     this.price = price;
 }
+//prototype function
 Product.prototype.getDetails=function(){
     console.log(`${this.name} price is ${this.price}`)
 }
@@ -80,8 +81,7 @@ abstract class Company{
     }
     abstract costToCompany()
     companyName(){
-        console.log(`Company name is ${this.name}`);
-        
+        console.log(`Company name is ${this.name}`); 
     }
 }
 

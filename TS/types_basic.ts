@@ -35,8 +35,8 @@ console.log(Employee.resident)
 
 //with interfaces
 interface Person {
-    name: string;
-    marks: number;
+    readonly name: string;
+    marks?: number;
     //interfaces can have optional and readonly classes
 }
 
