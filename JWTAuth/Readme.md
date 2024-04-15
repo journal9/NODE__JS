@@ -9,6 +9,7 @@ Case creating application
 - postgres
 
 #### Apis
+
 1. login superuser
 2. login user
 3. create case
@@ -18,3 +19,5 @@ Case creating application
 7. logout user
 8. get token for superuser
 9. refresh token for user.
+10. enable/disable case user
+11. remove case user

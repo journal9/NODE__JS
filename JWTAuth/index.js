@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const router  = express.Router();
+const SuperuserRoutes = require('./src/routes/SuperUserRoutes')
+const CaseUserRoutes = require('./src/routes/CaseUserRoutes')
 
 const port = 3003
 
