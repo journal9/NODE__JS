@@ -1,6 +1,6 @@
 ## Express + JWT Authentication
-
 Case creating application
+
 #### Roles
 1. SUPERUSER, create cases (JWT authenticated)
 2. USER, read cases or edit case info (simple autheticated)

@@ -1,22 +1,17 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const router  = express.Router();
-const SuperuserRoutes = require('./src/routes/SuperUserRoutes')
-const CaseUserRoutes = require('./src/routes/CaseUserRoutes')
+const router = express.Router();
+const approutes = require('./src/routes/MainRoutes')
 
-const port = 3003
+const port = 3003;
 
-app.get('/home',(req,res)=>{
-    console.log('hello')
-    res.send('server responding!!')
-})
+app.get("/home", (req, res) => {
+  console.log("hello");
+  res.send("server responding!!");
+});
 
-router
-    .use('/su',SuperuserRoutes)
-    .use('/cu',CaseUserRoutes)
-    .use('/token/get',GenTokenAuth)
+app.use(approutes);
 
-app.listen(port,()=>{
-    console.log(`Listening at port ${port}`)
-})
-
+app.listen(port, () => {
+  console.log(`Listening at port ${port}`);
+});
