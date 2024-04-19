@@ -21,3 +21,17 @@ Case creating application
 9. refresh token for user.
 10. enable/disable case user
 11. remove case user
+
+## following are the postgresql commands that I always forget
+
+- service postgresql status
+- sudo -i -u postgres or psql
+- postgres=# \conninfo
+- postgres=# \l, list of all databases
+- postgres=# \du, list of all users
+- postgres=# CREATE DATABASE cases;, create database
+- postgres=# CREATE USER superuser WITH ENCRYPTED PASSWORD 'rootuser'; , create user
+- postgres=# GRANT ALL PRIVILEGES ON DATABASE cases TO superuser;, grant permission to superuser
+- postgres=# CREATE DATABASE CaseManager;
+- postgres=# \c casemanager, connect to database casemanager as current user
+- casemanager-# \dt, list of all tables
