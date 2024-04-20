@@ -12,11 +12,14 @@ router
   .get("/case/all", (req, res) => {
     CaseUser.allcases(req, res);
   })
-  .get("/case/get/:id ", (req, res) => {
+  .get("/case/find/:id", (req, res) => {
     CaseUser.viewCase(req, res);
   })
-  .post("/logout ", (req, res) => {
-    CaseUser.logout(req, res);
+  .patch("/case/close/:id", (req, res) => {
+    CaseUser.closeCase(req, res);
+  })
+  .post("/logout", (req, res) => {
+    CaseUser.CUlogout(req, res);
   });
 
 

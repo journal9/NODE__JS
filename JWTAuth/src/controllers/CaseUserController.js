@@ -21,8 +21,6 @@ const updateCase = (req,res)=>{
         ...req.body,
         'updated_at':'"' + update_time + '"'
     }
-
-    console.log(updated_data)
     const q = query.updateController('cases',updated_data,req.params.id)
     var colValues = Object.keys(updated_data).map(function (key) {
         return updated_data[key];
@@ -35,8 +33,39 @@ const updateCase = (req,res)=>{
     })
 };
 
+const viewCase = (req,res)=>{
+    pool.query(query.findRecord('cases',req.params.id),(err,result)=>{
+        if(err) throw err;
+        res.status(200).json(result.rows[0]);
+    })
+}
+
+const closeCase = (req,res)=>{
+    close_time = query.currentDate()
+    updated_data = {
+        'closed':true,
+        'closed_at':'"' + close_time + '"'
+    }
+    const q = query.updateController('cases',updated_data,req.params.id)
+    var colValues = Object.keys(updated_data).map(function (key) {
+        return updated_data[key];
+      });
+    pool.query(q,colValues,(err,result)=>{
+        if(err) throw err;
+        res.status(200).send('case is closed');
+    })
+}
+
+const CUlogout = (req,res)=>{
+    //logout case user
+    res.status(200).send('case user logged out.')
+}
+
 module.exports={
     CUlogin,
     allcases,
-    updateCase
+    updateCase,
+    viewCase,
+    CUlogout,
+    closeCase
 }

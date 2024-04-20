@@ -23,10 +23,11 @@ Case creating application
 - case User
 
 1. login user
-2. get case
+2. get a case
 3. update case
 4. logout user
 5. close case
+6. get all user cases
 
 
 ## following are the postgresql commands that I always forget

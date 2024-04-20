@@ -20,6 +20,10 @@ const updateController = (table,cols,id)=>{
     return query.join(' ');
 }
 
+const findRecord = (table,id)=>{
+    return `SELECT * FROM ${table} WHERE id=${id}`;
+}
+
 const currentDate = ()=>{
     const date = new Date();
     let day = date.getDate();
@@ -34,5 +38,6 @@ module.exports = {
   getAllRecords,
   getUsersCases,
   updateController,
-  currentDate
+  currentDate,
+  findRecord
 };
