@@ -7,7 +7,7 @@ router
     CaseUser.CUlogin(req, res);
   })
   .patch("/case/:id", (req, res) => {
-    CaseUser.editCase(req, res);
+    CaseUser.updateCase(req, res);
   })
   .get("/case/all", (req, res) => {
     CaseUser.allcases(req, res);

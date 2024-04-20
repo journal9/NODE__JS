@@ -10,17 +10,24 @@ Case creating application
 
 #### Apis
 
+- Super User
+
 1. login superuser
-2. login user
-3. create case
-4. get case
-5. edit case
-6. delete case
-7. logout user
-8. get token for superuser
-9. refresh token for user.
-10. enable/disable case user
-11. remove case user
+2. create case
+3. close case
+4. get token for superuser. ---
+5. refresh token for user.---
+6. remove case user from case and assign another
+7. enable/disable case user
+
+- case User
+
+1. login user
+2. get case
+3. update case
+4. logout user
+5. close case
+
 
 ## following are the postgresql commands that I always forget
 
