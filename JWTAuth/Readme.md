@@ -1,14 +1,17 @@
-## Express + JWT Authentication
+# Express + JWT Authentication
+
 Case creating application
 
-#### Roles
+## Roles
+
 1. SUPERUSER, create cases (JWT authenticated)
 2. USER, read cases or edit case info (simple autheticated)
 
-#### Database
+## Database
+
 - postgres
 
-#### Apis
+## Apis
 
 - Super User
 
@@ -19,16 +22,16 @@ Case creating application
 5. refresh token for user.---
 6. remove case user from case and assign another
 7. enable/disable case user
+8. get summary of cases and case users
 
 - case User
 
-1. login user
+1. login user --
 2. get a case
 3. update case
 4. logout user
 5. close case
 6. get all user cases
-
 
 ## following are the postgresql commands that I always forget
 

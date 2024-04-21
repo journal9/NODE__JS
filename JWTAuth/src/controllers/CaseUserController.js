@@ -1,4 +1,3 @@
-const express = require("express");
 const pool = require("../../database/pg-database")
 const query = require('../../database/queries.js')
 
@@ -25,8 +24,6 @@ const updateCase = (req,res)=>{
     var colValues = Object.keys(updated_data).map(function (key) {
         return updated_data[key];
       });
-    console.log(colValues)
-    console.log(q)
     pool.query(q,colValues,(err,result)=>{
         if(err) throw err;
         res.status(200).send('updated');
