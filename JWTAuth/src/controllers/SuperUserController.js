@@ -1,4 +1,5 @@
-const query = require('../../database/queries')
+const pool = require("../../database/pg-database")
+const query = require('../../database/queries.js')
 
 const SUlogin = (req,res)=>{
     res.status(200).send('super user logged in')
@@ -51,7 +52,7 @@ const caseReopen = (req,res)=>{
     open_time = query.currentDate()
     updated_data = {
         'closed':false,
-        'closed_at':''
+        'closed_at':null
     }
     const q = query.updateController('cases',updated_data,req.params.id)
     var colValues = Object.keys(updated_data).map(function (key) {
@@ -68,7 +69,7 @@ const userAuthorize = (req,res)=>{//remove redundent code
     updated_data = {
         "enabled":false
     }
-    const q = query.updateController('cases',updated_data,req.params.id)
+    const q = query.updateController('caseuser',updated_data,req.params.id)
     var colValues = Object.keys(updated_data).map(function (key) {
         return updated_data[key];
       });

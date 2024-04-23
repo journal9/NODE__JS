@@ -9,7 +9,7 @@ const getUsersCases = (id) => {
 };
 
 const updateController = (table, cols, id) => {
-  query = [`UPDATE ${table} SET`];
+  var query = [`UPDATE ${table} SET`];
   var set = [];
   Object.keys(cols).forEach(function (key, i) {
     set.push(key + " = ($" + (i + 1) + ")");
@@ -25,14 +25,14 @@ const findRecord = (table, id) => {
 };
 
 const insertRecord = (table, data) => {
-  query = [`INSERT INTO ${table} (`];
+  var query = [`INSERT INTO ${table} (`];
   var cols = [];
   var values = [];
   Object.keys(data).forEach(function (key) {
     cols.push(key);
   });
   query.push(cols.join(", "));
-  query.push(" VALUES (");
+  query.push(`) VALUES (`);
   Object.keys(data).forEach(function (key, i) {
     values.push(" $" + (i + 1) + "");
   });
